@@ -13,8 +13,8 @@ public class Header {
 	}
 	
 	public Header (String theKey, String theValue) {
-		theKey = key;
-		theValue = value;
+		key = theKey;
+		value = theValue;
 			
 	} 
 	// Accessors and mutators
@@ -25,10 +25,10 @@ public class Header {
 		return this.value;
 	}
 	public void setKey(String theKey) {
-		theKey = key;
+		key = theKey;
 	}
 	public void setValue(String theValue) {
-		theValue = value;
+		value = theValue;
 	}
 
 	public Boolean equals(Header hdr) {
