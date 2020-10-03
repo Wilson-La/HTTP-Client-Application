@@ -4,9 +4,6 @@ public class httpc {
 		
 	}
 	
-	public static void createMessage(){
-		
-	}
 	
 	//GET method
 	public static void get(String urlInput){
