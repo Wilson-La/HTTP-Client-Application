@@ -1,3 +1,5 @@
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class httpc {
 	
@@ -43,7 +45,7 @@ public class httpc {
 	
 	public static String createMsg(String method, String path){
 		String msg = "";
-		Header headerArr[] = new Header[2];
+		Header headerArr[] = new Header[3];
 		Header header1 = new Header("Host", hostName);
 		Header header2 = new Header("Accept", "*/*");
 		Header header3 = new Header("User-agent", "Concordia-HTTP/1.0");
@@ -52,12 +54,26 @@ public class httpc {
 		headerArr[1] = header2;
 		headerArr[2] = header3;
 		if (method.equals("GET")){
-			msg = "GET /"+path+"/ HTTP 1.0\r\n"+"\r\n";
+			msg = "GET /"+path+"/ HTTP 1.0\r\n";
+			for(int i = 0; i < headerArr.length; i++){
+				msg += headerArr[i].toString();
+			}
+			msg += "\r\n";
 		}
 		else {
-			
+			Header header4 = new Header("Content-length","255");
+			headerArr[1] = header4;
+			msg = "POST /"+path+"/ HTTP 1.0\r\n";
+			for(int i = 0; i < headerArr.length; i++){
+				msg += headerArr[i].toString();
+			}
+			msg += "\r\n";
 		}
 		return msg;
+	}
+	
+	public static void sendMsg(){
+		
 	}
 	
 	//GET method
