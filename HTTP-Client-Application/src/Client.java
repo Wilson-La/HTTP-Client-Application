@@ -1,4 +1,3 @@
-
 /* COMP-445
  * Lab Assignment #1
  * Student 1:
@@ -11,8 +10,10 @@
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
@@ -165,31 +166,60 @@ public class Client {
 				}
 			}
 		}
+		
+		//The readFromFile() method gets a filePath to open a file to read from it and returns the text from the file as a string
+		public static String readFromFile(String filePath){
+			String fullyReadInput = "";
+			try{
+				FileReader fileToReadFrom = new FileReader(filePath);
+				BufferedReader brInput = new BufferedReader(fileToReadFrom);
+				String currLine;
+				while((currLine = brInput.readLine()) != null){
+					fullyReadInput = fullyReadInput.concat(currLine);
+				}
+				brInput.close();
+			}
+			catch(Exception e){
+				System.out.println("readFromFile() method has encountered an error. \n"+e.getMessage());
+			}
+			return fullyReadInput;
+		}
 	 
 		//createmsg() method used to create the request for either a GET or POST
 		public static String createMsg(String method, String path){
 			String msg = "";
-			Header headerArr[] = new Header[3];
-			Header header1 = new Header("Host", hostName);
-			Header header2 = new Header("Accept", "*/*");
-			Header header3 = new Header("User-agent", "Concordia-HTTP/1.0");
-					
-			headerArr[0] = header1;
-			headerArr[1] = header2;
-			headerArr[2] = header3;
+			ArrayList<Header> headerArr = new ArrayList<Header>();
 			if (method.equals("GET")){
+				Header header1 = new Header("Host", hostName);
+				Header header2 = new Header("Accept", "*/*");
+				Header header3 = new Header("User-agent", "Concordia-HTTP/1.0");
+						
+				headerArr.add(header1);
+				headerArr.add(header2);
+				headerArr.add(header3);
 				msg = "GET /"+path+"/ HTTP 1.0\r\n";
-				for(int i = 0; i < headerArr.length; i++){
-					msg += headerArr[i].toString();
+				for(int i = 0; i < headerArr.size(); i++){
+					msg += headerArr.get(i);
 				}
 				msg += "\r\n";
 			}
 			else {
-				Header header4 = new Header("Content-length","255");
-				headerArr[1] = header4;
+				
 				msg = "POST /"+path+"/ HTTP 1.0\r\n";
-				for(int i = 0; i < headerArr.length; i++){
-					msg += headerArr[i].toString();
+				if(h){
+					String cmdHeaderArr[] = dataHeader.split("\\r?\\n");
+					for(int i = 0; i < cmdHeaderArr.length; i++){
+						String splitByKeyVal[] = cmdHeaderArr[i].split(":");
+						Header header4 = new Header(splitByKeyVal[0], splitByKeyVal[1]);
+						headerArr.add(header4);
+					}
+					h = false;
+				}
+				for(int i = 0; i < headerArr.size(); i++){
+					msg += headerArr.get(i);
+				}
+				if(hasInline){
+					hasInline = false;
 				}
 				msg += "\r\n";
 			}
@@ -276,7 +306,11 @@ public class Client {
 				}    
 			}
 
-
+		/*
+		GET method which uses the urlParser() to parse the url into hostName and path.
+		The method then uses the createMsg() method to create the GET request to be sent
+		Then the method finally uses the sendMsg() method to send the GET request
+		*/
 		public static void get(String urlInput){
 	
 			urlParser(urlInput);
