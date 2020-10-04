@@ -14,9 +14,11 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class httpc {
 	
@@ -27,7 +29,7 @@ public class httpc {
 	private static String getHelp;
 	private static String postHelp;
 	private static Socket clientSocket = new Socket();
-	private static String port = "8080";
+	private static String port = "80";
 	private static boolean verbose = false;
 	private static String messageToSend;
 	
@@ -84,30 +86,46 @@ public class httpc {
 			}
 		}
 	}
+	//The readFromFile() method gets a filePath to open a file to read from it and returns the text from the file as a string
+	public static String readFromFile(String filePath){
+		String fullyReadInput = "";
+		try{
+			FileReader fileToReadFrom = new FileReader(filePath);
+			BufferedReader brInput = new BufferedReader(fileToReadFrom);
+			String currLine;
+			while((currLine = brInput.readLine()) != null){
+				fullyReadInput = fullyReadInput.concat(currLine);
+			}
+			brInput.close();
+		}
+		catch(Exception e){
+			System.out.println("readFromFile() method has encountered an error. \n"+e.getMessage());
+		}
+		return fullyReadInput;
+	}
 	//createmsg() method used to create the request for either a GET or POST
 	public static String createMsg(String method, String path){
 		String msg = "";
-		Header headerArr[] = new Header[3];
-		Header header1 = new Header("Host", hostName);
-		Header header2 = new Header("Accept", "*/*");
-		Header header3 = new Header("User-agent", "Concordia-HTTP/1.0");
-				
-		headerArr[0] = header1;
-		headerArr[1] = header2;
-		headerArr[2] = header3;
+		ArrayList<Header> headerArr = new ArrayList<Header>();
 		if (method.equals("GET")){
+			Header header1 = new Header("Host", hostName);
+			Header header2 = new Header("Accept", "*/*");
+			Header header3 = new Header("User-agent", "Concordia-HTTP/1.0");
+					
+			headerArr.add(header1);
+			headerArr.add(header2);
+			headerArr.add(header3);
 			msg = "GET /"+path+"/ HTTP 1.0\r\n";
-			for(int i = 0; i < headerArr.length; i++){
-				msg += headerArr[i].toString();
+			for(int i = 0; i < headerArr.size(); i++){
+				msg += headerArr.get(i);
 			}
 			msg += "\r\n";
 		}
 		else {
-			Header header4 = new Header("Content-length","255");
-			headerArr[1] = header4;
+			
 			msg = "POST /"+path+"/ HTTP 1.0\r\n";
-			for(int i = 0; i < headerArr.length; i++){
-				msg += headerArr[i].toString();
+			for(int i = 0; i < headerArr.size(); i++){
+				msg += headerArr.get(i);
 			}
 			msg += "\r\n";
 		}
