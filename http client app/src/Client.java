@@ -16,10 +16,10 @@ public class Client {
 
 
 	 
-	 	static private boolean getRequest;
-	 	static private boolean postRequest;
-	 	static private boolean helpMsg=false;
-	 	static private String url;
+	 	private static boolean getRequest;
+	 	private static boolean postRequest;
+	 	private static boolean helpMsg=false;
+	 	private static String url;
  	
 	 	//constructors
 		public Client () {
