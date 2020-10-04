@@ -112,30 +112,30 @@ public class Client {
 						        }
 			}
 	 
-	 	//static variables
-	 		//verbose
-	 	private static boolean v = false;
-	 		//header
-	    private static boolean h = false;
-	    	//in line data
-	    private static boolean hasInline = false;
-	    	//reading from file
-	    private static boolean readFile = false;
-	        //header data
+	 //static variables
+	 //verbose
+	 private static boolean v = false;
+	 //header
+	 private static boolean h = false;
+	 //in line data
+	 private static boolean hasInline = false;
+	 //reading from file
+	 private static boolean readFile = false;
+	 //header data
 	    
 	    
 	    
-	       //Information to provide
-	    private static String headerData = "";
-	    private static String inLineData = "";
-	    private static String path = "";
-	    private static String hostName = "";
-	    private static String outDirectory = "";
-	    private static String arguments = "";
-	    private static String msgBuilder = "";
-	    private static String port = "80";
-	    private static String[] hostArgs = new String[2];
-	    private static Socket socket = new Socket();
+	 //Information to provide
+	 private static String headerData = "";
+	 private static String inLineData = "";
+	 private static String path = "";
+	 private static String hostName = "";
+	 private static String outDirectory = "";
+	 private static String arguments = "";
+	 private static String msgBuilder = "";
+	 private static String port = "80";
+	 private static String[] hostArgs = new String[2];
+	 private static Socket socket = new Socket();
 
 	 
 	 // url parser
