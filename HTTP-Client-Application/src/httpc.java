@@ -6,10 +6,7 @@ public class httpc {
 	private static String path;
 	private static String hostName;
 	private static Header headers[];
-	private static String generalHelp;
-	private static String getHelp;
-	private static String postHelp;
-
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
