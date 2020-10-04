@@ -218,11 +218,11 @@ public class Client {
 				for(int i = 0; i < headerArr.size(); i++){
 					msg += headerArr.get(i);
 				}
+				msg += "\r\n";
 				if(hasInline){
 					msg += dataInline;
 					hasInline = false;
 				}
-				msg += "\r\n";
 			}
 			return msg;
 		}
