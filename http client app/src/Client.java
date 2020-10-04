@@ -23,7 +23,7 @@ public class Client {
  	
 	 	//constructors
 		public Client () {
-		    Client.getRequest = false;
+		    	Client.getRequest = false;
 			Client.postRequest = false;
 			Client.helpMsg= false;
 			Client.url="";
@@ -200,11 +200,6 @@ public class Client {
 	        return param.substring(0, param.length() - 1);
 	        }   
 	    
-	    /**
-	     * This method read data from the file and puts it in the inLineData variable.
-	     * @param path
-	     * @return a string containing the data from the file
-	     */
 	    public static String readingFromFile(String path) {
 	        String line_ = "";
 	        try{
@@ -220,15 +215,7 @@ public class Client {
 	        }
 	        return line_;
 	    }
-	    
-	    /**
-	     * This method creates the message that is to be sent over by the socket. 
-	     * @param requestType either GET or POST
-	     * @param arguments everything after the .org/"..." or .com/"..."
-	     * @param hasHeader add to the message only if headers are provided.
-	     * @param hasData only for the post request. If it has data add it to the message.
-	     * @return a string that is ready to be send over the socket.
-	     */
+
 	    public static String createMessage(String requestType, String arguments, boolean hasHeader, boolean hasData) {
 	        String message = "";
 	        final String HTTP = (" HTTP/1.0\r\n");
@@ -241,11 +228,6 @@ public class Client {
 	            message = requestType+arguments+HTTP;
 	            message = message.concat("Content-Length: "+inLineData.length()+"\r\n");
 	            message = message.concat(headerData+"\r\n");
-	            // if (!hasHeader){
-	            //     message = message.concat("\r\n");
-	            // }else{
-	            //     message = message.concat(headerData+"\r\n");
-	            // }
 	            if(hasData){
 	                message = message.concat(inLineData+"\r\n");
 	            }
@@ -302,7 +284,7 @@ public class Client {
 	        urlParser(input);
 	        
 	        if (hasInline && readFile){
-	            System.out.println("Cannot have -d and -f together. Exiting the application.");
+	            System.out.println(" Cannot combine -d and -f.");
 	            System.exit(1);
 	        }
 	        else if (readFile){
