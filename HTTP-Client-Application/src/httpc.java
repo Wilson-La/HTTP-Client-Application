@@ -1,3 +1,13 @@
+/* COMP-445
+ * Lab Assignment #1
+ * Student 1:
+ * Name: Achoura Bague
+ * Student ID: 27877986
+ * Student 2:
+ * Name: Wilson La
+ * Student ID: 27738986
+ * */
+
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.io.BufferedReader;
