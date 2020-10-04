@@ -190,14 +190,14 @@ public class Client {
 			String msg = "";
 			ArrayList<Header> headerArr = new ArrayList<Header>();
 			if (method.equals("GET")){
-				Header header1 = new Header("Host", hostName);
-				Header header2 = new Header("Accept", "*/*");
-				Header header3 = new Header("User-agent", "Concordia-HTTP/1.0");
-						
-				headerArr.add(header1);
-				headerArr.add(header2);
-				headerArr.add(header3);
+				String cmdHeaderArr[] = dataHeader.split("\\r?\\n");
 				msg = "GET /"+path+"/ HTTP 1.0\r\n";
+				
+				for(int j = 0; j < cmdHeaderArr.length; j++){
+					String splitByKeyVal[] = cmdHeaderArr[j].split(":");
+					Header header = new Header(splitByKeyVal[0], splitByKeyVal[1]);
+					headerArr.add(header);
+				}
 				for(int i = 0; i < headerArr.size(); i++){
 					msg += headerArr.get(i);
 				}
@@ -210,8 +210,8 @@ public class Client {
 					String cmdHeaderArr[] = dataHeader.split("\\r?\\n");
 					for(int i = 0; i < cmdHeaderArr.length; i++){
 						String splitByKeyVal[] = cmdHeaderArr[i].split(":");
-						Header header4 = new Header(splitByKeyVal[0], splitByKeyVal[1]);
-						headerArr.add(header4);
+						Header header = new Header(splitByKeyVal[0], splitByKeyVal[1]);
+						headerArr.add(header);
 					}
 					h = false;
 				}
