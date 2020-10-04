@@ -78,11 +78,11 @@ public class Client {
 		private static String port = "80";
 		private static String messageToSend;
 		
-	    private static String dataHeader = "";
-	    private static boolean h = false;
-	    private static String dataInline = "";
-	    private static boolean hasInline = false;
-	    private static boolean readFile = false;
+	   	private static String dataHeader = "";
+	    	private static boolean h = false;
+	    	private static String dataInline = "";
+	    	private static boolean hasInline = false;
+	    	private static boolean readFile = false;
 	 	private static boolean v = false;
 		
 	
