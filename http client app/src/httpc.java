@@ -5,17 +5,17 @@ public class httpc {
 		
 		
 			//argument condition
-		 	if ( args.length == 0){
+		if ( args.length == 0){
 	            System.out.println("For More information use commands:\n\t\n httpc help \t\n httpc get help \t\n httpc post help\n");
 	        }
-		 	else{
+		else{
 	            Client.cmdInput(args);
 	        }
 		 	
 		 	//help condition
 		 	
 		 	//help request
-	        if (Client.getHelpMsg()) {
+	       	if (Client.getHelpMsg()) {
 	            Client.help();
 	        }
 	        //get request
