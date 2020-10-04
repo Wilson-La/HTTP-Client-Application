@@ -4,7 +4,7 @@ public class httpc {
 		// TODO Auto-generated method stub
 		
 		
-			//argument condition
+		//argument condition
 		if ( args.length == 0){
 	            System.out.println("For More information use commands:\n\t\n httpc help \t\n httpc get help \t\n httpc post help\n");
 	        }
@@ -12,9 +12,9 @@ public class httpc {
 	            Client.cmdInput(args);
 	        }
 		 	
-		 	//help condition
+		 //help condition
 		 	
-		 	//help request
+		 //help request
 	       	if (Client.getHelpMsg()) {
 	            Client.help();
 	        }
