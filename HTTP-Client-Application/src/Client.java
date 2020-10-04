@@ -219,6 +219,7 @@ public class Client {
 					msg += headerArr.get(i);
 				}
 				if(hasInline){
+					msg += dataInline;
 					hasInline = false;
 				}
 				msg += "\r\n";
