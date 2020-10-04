@@ -195,7 +195,7 @@ public class Client {
 				
 				for(int j = 0; j < cmdHeaderArr.length; j++){
 					String splitByKeyVal[] = cmdHeaderArr[j].split(":");
-					Header header = new Header(splitByKeyVal[0], splitByKeyVal[1]);
+					Header header = new Header(splitByKeyVal[0].toString(), splitByKeyVal[1].toString());
 					headerArr.add(header);
 				}
 				for(int i = 0; i < headerArr.size(); i++){
@@ -210,7 +210,7 @@ public class Client {
 					String cmdHeaderArr[] = dataHeader.split("\\r?\\n");
 					for(int i = 0; i < cmdHeaderArr.length; i++){
 						String splitByKeyVal[] = cmdHeaderArr[i].split(":");
-						Header header = new Header(splitByKeyVal[0], splitByKeyVal[1]);
+						Header header = new Header(splitByKeyVal[0].toString(), splitByKeyVal[1].toString());
 						headerArr.add(header);
 					}
 					h = false;
