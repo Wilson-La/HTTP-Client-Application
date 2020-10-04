@@ -71,7 +71,7 @@ public class httpc {
 		}
 		return msg;
 	}
-	
+	//The sendMsg() method
 	public static void sendMsg(){
 		
 	}
