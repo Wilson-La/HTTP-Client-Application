@@ -75,7 +75,7 @@ public class Client {
 		private static String getHelp;
 		private static String postHelp;
 		private static Socket clientSocket = new Socket();
-		private static String port = "8080";
+		private static String port = "80";
 		private static String messageToSend;
 		
 	   	private static String dataHeader = "";
