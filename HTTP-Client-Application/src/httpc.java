@@ -18,7 +18,7 @@ public class httpc {
 	            System.out.println("For More information use commands:\n\t\n httpc help \t\n httpc get help \t\n httpc post help\n");
 	        }
 		 	else{
-	            Client.cmdInput(args);
+	            Client.cmdInputParser(args);
 	        }
 		 	
 		 	//help condition
