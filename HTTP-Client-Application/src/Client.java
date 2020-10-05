@@ -68,23 +68,24 @@ public class Client {
 		}
 		
 		
-	 	//Variables
-		private static String path;
-		private static String hostName;
-		private static Header headers[];
-		private static String generalHelp;
-		private static String getHelp;
-		private static String postHelp;
-		private static Socket clientSocket = new Socket();
-		private static String port = "80";
-		private static String messageToSend;
+	//Variables
 		
-	   	private static String dataHeader = "";
-	    	private static boolean h = false;
-	    	private static String dataInline = "";
-	    	private static boolean hasInline = false;
-	    	private static boolean readFile = false;
-	 	private static boolean v = false;
+	private static Header headers[];
+	private static Socket clientSocket = new Socket();
+		
+	private static String path;
+	private static String hostName;
+	private static String messageToSend;
+	private static String port = "80";
+	private static String dataHeader = "";
+	private static String dataInline = "";
+	    
+	private static boolean h = false;
+	private static boolean inLine = false;
+	private static boolean readFile = false;
+	private static boolean v = false;
+	 	
+	private static String filePath = "";
 		
 	
 	 	//methods
@@ -220,9 +221,9 @@ public class Client {
 					msg += headerArr.get(i);
 				}
 				msg += "\r\n";
-				if(hasInline){
+				if(inLine){
 					msg += dataInline;
-					hasInline = false;
+					inLine = false;
 				}
 			}
 			return msg;
@@ -263,10 +264,21 @@ public class Client {
 				System.out.println("sendMsg() method has encountered an error.\n"+e.getMessage());
 			}
 		}
+	
+		//method for clean command input
+		public static String stringParser(String str) {
+			str = str.replace("\"", "");
+			str = str.replace("\'", "");
+			return str;
+		}
 	 
 		//command line
-		public static void cmdInput(String[] args){
+		public static void cmdInputParser(String[] args){
+			
+			
 			for (int i =0; i<=args.length-1; i++){
+				
+				args[i] = stringParser(args[i]);
     	
 				//help command
 				if (args[i].equals("help")){
@@ -292,7 +304,7 @@ public class Client {
 				}
 				//inline data
 				else if(args[i].equals("-d")){
-					hasInline=true;
+					inLine=true;
 					dataInline = (args[i+1]);
 					i++;
 				}
@@ -307,6 +319,19 @@ public class Client {
 					url = (args[i]);
 				}    
 			}
+	
+	
+		//inline data parser
+		public static String inLineParser(String inLineData) {
+	        //remove while spaces
+	        inLineData = inLineData.replaceAll("\\s", "");
+	        String data = "";
+	        if (inLineData.charAt(0)=='{'){
+	            inLineData = inLineData.substring(1, inLineData.length()-1);
+	        }
+	        return data.substring(0, data.length() - 1);
+	        }   
+	    
 
 		/*
 		GET method which uses the urlParser() to parse the url into hostName and path.
@@ -321,13 +346,31 @@ public class Client {
 	
 			sendMsg(messageToSend);
 		}
+		
 		//POST method
 		public static void post(String urlInput){
 	
 			urlParser(urlInput);
-	
-			//Incomplete condition to be added
-	
+			
+			//Condition for readFile command -f
+			if(readFile) {
+				inLine = true;
+	        	dataInline = readFromFile(filePath);
+	        	dataInline= inLineParser(dataInline);
+			}
+			//condition for inline data command -d
+			else if(inLine) {
+				dataInline = inLineParser(dataInline);
+			}
+			
+			/*condition for both inline data and read file data
+			 post should have either -d or -f but not both.*/
+			
+			else if (inLine && readFile){
+	            System.out.println("Note: -d and -f cannot be in a POST request.");
+	            System.exit(1);
+	        }
+			
 			messageToSend = createMsg("POST", path);
 	
 			sendMsg(messageToSend);
